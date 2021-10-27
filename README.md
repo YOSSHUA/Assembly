@@ -1,3 +1,3 @@
 # Assembly
 
-This repository contains all my codes ang a guide for assembly x86.
+This repository contains all my codes and a guide for assembly x86.
