@@ -553,7 +553,7 @@ nameMacro MACRO [arg1, arg2, ...]
 ENDM
 ```
 
-<h2><details><summary> Ejemplo </summary>
+<h2><details><summary> Ejemplo 1 </summary>
 <p>
 
 
@@ -573,6 +573,30 @@ ENDM
 
 
 ENDM
+```	
+</p>
+</details></h2>
+<br/>
+
+<h2><details><summary> Ejemplo 2 </summary>
+<p>
+
+```x86asm
+;Incluir librería de macros
+INCLUDE \masm32\Irvine\Macros.inc
+
+; Macro definition with an argument 
+mPutchar  MACRO  char
+	push EAX
+	mov AL, char
+	call WriteChar
+	pop EAX
+ENDM
+
+.DATA
+
+.CODE
+    mPutchar  ‘A’
 ```	
 </p>
 </details></h2>
