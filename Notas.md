@@ -440,6 +440,98 @@ Funcionada para signado o sin signo.
 <br/>
 
 
+<h2><details><summary> AND </summary>
+<p>
+
+Es un bitwise operator. Modifies Sign, Zero, and Parity.
+	
+Sintaxis: AND destination, source
+	
+Opciones permitidas
+	
+AND reg, reg
+	
+AND reg, mem
+	
+AND reg, imm
+	
+AND mem, reg
+	
+AND mem, imm
+
+</p>
+</details></h2>
+<br/>
+
+<h2><details><summary> OR </summary>
+<p>
+
+Es un bitwise operator. Modifies Sign, Zero, and Parity.
+	
+Sintaxis: OR destination, source
+	
+Opciones permitidas
+	
+OR reg, reg
+	
+OR reg, mem
+	
+OR reg, imm
+	
+OR mem, reg
+	
+OR mem, imm
+
+</p>
+</details></h2>
+<br/>
+
+<h2><details><summary> OR </summary>
+<p>
+
+Es un bitwise operator. With 0 retains its value, with 1 reverses value. Modifies Sign, Zero, and Parity.
+	
+Sintaxis: XOR destination, source
+	
+Opciones permitidas
+	
+XOR reg, reg
+	
+XOR reg, mem
+	
+XOR reg, imm
+	
+XOR mem, reg
+	
+XOR mem, imm
+
+</p>
+</details></h2>
+<br/>
+
+<h2><details><summary> NOT </summary>
+<p>
+
+No flags are affected. Opciones:
+	
+NOT reg
+	
+NOT mem
+	
+</p>
+</details></h2>
+<br/>
+
+<h2><details><summary> TEST (nondestructive AND)</summary>
+<p>
+
+Modifies the Sign, Zero, and Parity flags.
+	
+</p>
+</details></h2>
+<br/>
+
+
 # MACRO
 
 Es un bloque de código con nombre.
