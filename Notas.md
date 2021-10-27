@@ -260,12 +260,19 @@ IMUL reg32,imm32
 El resultado se guarda en el primer operando.
 CF y OF están en 1 si los dígitos significativos se pierden.
 El resultado se guarda en el primer registro.
+
+<br>
 Three-operand 16-bit formats:
+	
 IMUL reg16, reg/mem16, imm8
+	
 IMUL reg16, reg/mem16, imm16
 
+<br>
 Three-operand 32-bit formats:
+	
 IMUL reg32, reg/mem32, imm8
+	
 IMUL reg32, reg/mem32, imm32
 
 
