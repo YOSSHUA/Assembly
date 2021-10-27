@@ -486,7 +486,7 @@ OR mem, imm
 </details></h2>
 <br/>
 
-<h2><details><summary> OR </summary>
+<h2><details><summary> XOR </summary>
 <p>
 
 Es un bitwise operator. With 0 retains its value, with 1 reverses value. Modifies Sign, Zero, and Parity.
