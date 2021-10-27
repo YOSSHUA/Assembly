@@ -352,6 +352,94 @@ POP reg
 <br/>
 
 
+# Instrucciones de transferencia de control (jumps)
+
+<h2><details><summary> JMP(Da un salto a la etiqueta especificada) </summary>
+<p>
+
+```x86asm
+
+.CODE
+	 JMP lbl3
+	 instrucR
+	 instrucT
+lbl3:
+	...
+```
+
+</p>
+</details></h2>
+<br/>
+
+<h2><details><summary> Jcond Based on one Flag </summary>
+<p>
+
+![image](https://user-images.githubusercontent.com/42878951/138994603-0218aef6-5e2a-4b3d-9c70-340ada08d981.png)
+
+</p>
+</details></h2>
+<br/>
+
+
+<h2><details><summary> CMP </summary>
+<p>
+
+La lógica es hacer leftOp - rightOp. Afecta todas las banderas.
+	
+CMP reg, reg
+	
+CMP reg, mem
+	
+CMP reg, imm
+	
+CMP mem, reg
+	
+CMP mem, imm
+	
+```x86asm
+
+.CODE
+	 CMP leftOp rightOp 
+```
+
+</p>
+</details></h2>
+<br/>
+
+
+<h2><details><summary> Jcond para igualdad </summary>
+<p>
+
+Funcionada para signado o sin signo.
+![image](https://user-images.githubusercontent.com/42878951/138995091-50d1861c-86ed-432f-953e-804d2eab3e1b.png)
+
+	
+</p>
+</details></h2>
+<br/>
+
+
+<h2><details><summary> Jcond unsigned </summary>
+<p>
+
+![image](https://user-images.githubusercontent.com/42878951/138995158-67edd185-faaa-4963-9250-211d19941c35.png)
+	
+</p>
+</details></h2>
+<br/>
+
+
+
+<h2><details><summary> Jcond signed </summary>
+<p>
+
+![image](https://user-images.githubusercontent.com/42878951/138995211-348531ae-416d-495c-b637-275eb18a525b.png)
+	
+</p>
+</details></h2>
+<br/>
+
+
 # MACRO
 
 Es un bloque de código con nombre.
