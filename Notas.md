@@ -21,10 +21,10 @@ sustituye el símbolo por su valor. Entonces, no reservan memoria.
 <h2><details><summary> DumpRegs (It desplays all the general registers and the flags)</summary>
 <p>
 
-```x86asm
+~~~nasm
 .CODE
 CALL    DumpRegs
-```
+~~~
 </p>
 </details></h2>
 </h2>
@@ -34,12 +34,12 @@ CALL    DumpRegs
 <p>
 Pass in ESI the starting address of the block, in ECX the number of units or elements, and in EBX the unit size       (1 : byte, 2 : word, 4 : doubleword).
 
-```x86asm
+~~~nasm
 MOV     ESI, OFFSET inicio
 MOV     ECX, elementos
 MOV     EBX, tamDeElem                          
 CALL    DumpMem
-```
+~~~
 </p>
 </details></h2>
 
@@ -48,11 +48,11 @@ CALL    DumpMem
 <p>
 Pass the integer into EAX.
 
-```x86asm
+~~~nasm
 MOV     EAX, valInt
 CALL    WriteInt
 CALL    Crlf ; salto de linea
-```
+~~~
 </p>
 </details></h2>
 
@@ -61,11 +61,11 @@ CALL    Crlf ; salto de linea
 <p>
 
 Pass the integer into EAX.
-```x86asm
+~~~nasm
 MOV     EAX, valHex
 CALL    WriteHex
 CALL    Crlf
-```
+~~~
 </p>
 </details></h2>
 
@@ -75,14 +75,14 @@ CALL    Crlf
 
 Pass in EDX register the string’s offset.
 
-```x86asm
+~~~nasm
 .DATA
       line1 BYTE  “Enter the data: “, 0
  
 .CODE
       MOV   EDX, OFFSET line
       CALL  WriteString
-```
+~~~
 </p>
 </details></h2>
 
@@ -90,9 +90,9 @@ Pass in EDX register the string’s offset.
 <h2><details><summary> Crlf (It advances the cursor, inwindow console, to the beginning of the next line.)</summary>
 <p>
 
-```x86asm
+~~~nasm
 call    Crlf
-```
+~~~
 </p>
 </details></h2>
 
@@ -104,14 +104,14 @@ Returns the value in EAX register.
 Can be typed an optional leading plus or minus sign.
 It sets the Overflow flag and display an error message if the value cannot be represented as  a 32-bit signed integer (-2,147,483,648 to + 2,147,483,647)
 
-```x86asm
+~~~nasm
 .DATA
      valInt SDWORD ?
  
 .CODE
     CALL    ReadInt
     MOV     valInt, EAX
-```
+~~~
 </p>
 </details></h2>
 	
@@ -122,14 +122,14 @@ It sets the Overflow flag and display an error message if the value cannot be re
 Returns the value in EAX register.
 No error checking is performed for invalid characteres.
 Can use both uppercase letters and lowercase letters for the digits A through F.
-```x86asm
+~~~nasm
 .DATA
      valHex  DWORD ?
  
 .CODE
     CALL    ReadHex
     MOV     valHex, EAX
-```
+~~~
 </p>
 </details></h2>
 
@@ -141,7 +141,7 @@ Pass the buffer’s offset in EDX register.
 Set ECX to the maximum number of characters that the user can type, plus 1 to save space for the terminting null byte.
 It returns, in EAX, the count of the number of characters typed by the user.
 
-```x86asm
+~~~nasm
 .DATA
       bufferR   BYTE 81 DUP(0)    ; 80 characters plus 0 (terminator)
       charCountR  DWORD ?
@@ -150,7 +150,7 @@ It returns, in EAX, the count of the number of characters typed by the user.
       MOV       ECX, 81
       CALL      ReadString
       MOV       charCountR, EAX
-```
+~~~
 </p>
 </details></h2>
 
@@ -162,7 +162,7 @@ Pass the buffer’s offset in EDX register.
 Set ECX to the maximum number of characters that the user can type, plus 1 to save space for the terminting null byte.
 It returns, in EAX, the count of the number of characters typed by the user.
 It can also be used to combine elements of a smaller data type and move them into a larger operand.
-```x86asm
+~~~nasm
 .DATA
       .DATA
       myDouble DWORD 12345678h
@@ -178,7 +178,7 @@ It can also be used to combine elements of a smaller data type and move them int
       MOV AX, WORD PTR [myBytes]		
       MOV AX, WORD PTR [myBytes+2]		
       MOV EAX, DWORD PTR myBytes
-```
+~~~
 </p>
 </details></h2>
 	  
@@ -197,7 +197,7 @@ Usa AL, AX, EAX, RAX de forma implícita para multiplicar por el parámetro que 
 
 Checa la bandera de Carry después de MUL para saber si hay bit significativos en la mitad superior del producto que se guarda en AH, DX, EDX.
 El producto es del doble del tamaño.
-```x86asm
+~~~nasm
 .DATA
       val1 WORD 2000h
       val2 WORD 100h
@@ -211,7 +211,7 @@ El producto es del doble del tamaño.
       MOV EBX,1000h
       MUL EBX	; EDX:EAX = 0000000012345000h, CF=0
 
-```
+~~~
 </p>
 </details></h2>
 
@@ -345,13 +345,13 @@ Si el cociente no cabe en el destino o el divisor es 0 se interrumple el CPU y e
 Push guarda temporalmente en el stack el valor del registro que se le pase.
 Pop borra del stack lo que se guardó con push y recupera en el registro lo que se había gurdado.
 
-```x86asm
+~~~nasm
 
 PUSH reg
 
 POP reg
 
-```
+~~~
 
 
 </p>
@@ -364,7 +364,7 @@ POP reg
 <h2><details><summary> JMP(Da un salto a la etiqueta especificada) </summary>
 <p>
 
-```x86asm
+~~~nasm
 
 .CODE
 	 JMP lbl3
@@ -372,7 +372,7 @@ POP reg
 	 instrucT
 lbl3:
 	...
-```
+~~~
 
 </p>
 </details></h2>
@@ -403,11 +403,11 @@ CMP mem, reg
 	
 CMP mem, imm
 	
-```x86asm
+~~~nasm
 
 .CODE
 	 CMP leftOp rightOp 
-```
+~~~
 
 </p>
 </details></h2>
@@ -557,7 +557,7 @@ ENDM
 <p>
 
 
-```x86asm
+~~~nasm
 ;Incluir librería de macros
 INCLUDE \masm32\Irvine\Macros.inc
 
@@ -586,7 +586,7 @@ ENDM
 
 
 ENDM
-```	
+~~~	
 </p>
 </details></h2>
 <br/>
@@ -594,7 +594,7 @@ ENDM
 <h2><details><summary> Ejemplo 2 </summary>
 <p>
 
-```x86asm
+~~~nasm
 ;Incluir librería de macros
 INCLUDE \masm32\Irvine\Macros.inc
 
@@ -610,7 +610,7 @@ ENDM
 
 .CODE
     mPutchar  ‘A’
-```	
+~~~	
 </p>
 </details></h2>
 <br/>
