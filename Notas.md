@@ -549,6 +549,8 @@ Durante el pre-procesamiento del ensamblador a lenguaje máquina se susyituye el
 INCLUDE \masm32\Irvine\Macros.inc
 
 nameMacro MACRO [arg1, arg2, ...]
+
+ENDM
 ```
 
 # Condicionales
