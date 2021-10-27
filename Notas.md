@@ -544,14 +544,14 @@ Modifies the Sign, Zero, and Parity flags.
 Es un bloque de código con nombre.
 Durante el pre-procesamiento del ensamblador a lenguaje máquina se susyituye el nombre del macro con el fragmento de código que representa. Es una utilería para simplificar el código.
 
-```~~~
+~~~nasm
 ;Incluir librería de macros
 INCLUDE \masm32\Irvine\Macros.inc
 
 nameMacro MACRO [arg1, arg2, ...]
 
 ENDM
-```
+~~~
 
 <h2><details><summary> Ejemplo 1 </summary>
 <p>
