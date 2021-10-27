@@ -553,4 +553,29 @@ nameMacro MACRO [arg1, arg2, ...]
 ENDM
 ```
 
+<h2><details><summary> Ejemplo </summary>
+<p>
+
+
+```x86asm
+;Incluir librería de macros
+INCLUDE \masm32\Irvine\Macros.inc
+
+; Macro definition
+mNewLine  MACRO
+	CALL CrLf
+ENDM
+
+.DATA
+    
+.CODE
+    mNewLine
+
+
+ENDM
+```	
+</p>
+</details></h2>
+<br/>
+
 # Condicionales
