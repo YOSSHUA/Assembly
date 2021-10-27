@@ -566,6 +566,19 @@ mNewLine  MACRO
 	CALL CrLf
 ENDM
 
+mDumpMem MACRO address, itemsCount, itemSize
+	push ebx
+	push ecx
+	push esi
+	mov  esi,address
+	mov  ecx,itemsCount
+	mov  ebx,itemSize
+	call DumpMem
+	pop  esi
+	pop  ecx
+	pop  ebx
+ENDM
+
 .DATA
     
 .CODE
