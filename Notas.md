@@ -322,7 +322,7 @@ The CBW, CWD, and CDQ instructions provide important sign-extension operations:
 |EDX:EAX | reg/mem32| EAX | EDX|
 
 
-Limpiar reminder, cargar el diviendo ex AL, AX, EAX y el número que lo va a dividir en AL, AX o EAX.
+Limpiar reminder, cargar el diviendo en AL, AX, EAX y el número que lo va a dividir en AL, AX o EAX.
 
 Todas las banderas quedan indefinidas.
 
