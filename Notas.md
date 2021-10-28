@@ -641,17 +641,14 @@ TEST accum,imm
 
 <h2><details><summary> PUSH \ POP</summary>
 <p>
-Performs a logical AND operation that affects the flags but not the destination operand.
-Modifies the Sign, Zero, and Parity flags.
-	
+
 ~~~nasm
 
-PUSH / POP reg/mem16   
-PUSH / POP reg/mem32 
-PUSH / POP reg/mem64          
+PUSH reg/mem16  ; POP
+PUSH reg/mem32  ; POP
+PUSH reg/mem64	; POP          
 PUSH imm32              
 PUSH imm64              
-	
 ~~~
 	
 </p>
