@@ -553,7 +553,7 @@ nameMacro MACRO [arg1, arg2, ...]
 ENDM
 ~~~
 
-<h2><details><summary> Ejemplo 1 </summary>
+<h2><details><summary> Ejemplos </summary>
 <p>
 
 
