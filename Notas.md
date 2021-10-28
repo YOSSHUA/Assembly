@@ -615,4 +615,24 @@ ENDM
 </details></h2>
 <br/>
 
-# Condicionales
+# Directivas de control de flujo condicional
+
+<h2><details><summary> Directivas</summary>
+<p>
+
+![image](https://user-images.githubusercontent.com/42878951/139165226-90744aaf-7038-4fe1-8e51-7e7a98f0c652.png)
+	
+</p>
+</details></h2>
+<br/>
+
+<h2><details><summary> Operadores lógicos y relacionales</summary>
+<p>
+
+![image](https://user-images.githubusercontent.com/42878951/139165268-44330c91-a106-4476-89be-1b600648e3e4.png)
+
+</p>
+</details></h2>
+<br/>
+
+
