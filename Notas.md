@@ -17,6 +17,95 @@ sustituye el símbolo por su valor. Entonces, no reservan memoria.
 <br>
 
 # Instrucciones en ensamblador
+
+<br>
+<h2><details><summary> ADD \ SUB</summary>
+<p>
+
+Opciones
+~~~nasm
+ADD reg,reg 
+ADD reg,imm
+ADD mem,reg 
+ADD mem,imm
+ADD reg,mem 
+ADD accum,imm
+~~~
+	
+</p>
+</details></h2>
+
+<br>
+<h2><details><summary> XCHG </summary>
+<p>
+
+Exchanges the contents of the source and destination operands.
+~~~nasm
+XCHG reg,reg 
+XCHG mem,reg
+XCHG reg,mem
+~~~
+	
+</p>
+</details></h2>
+
+<br>
+<h2><details><summary> MOV </summary>
+<p>
+
+Opciones
+~~~nasm
+MOV reg,reg 
+MOV reg,imm
+MOV mem,reg 
+MOV mem,imm
+MOV reg,mem 
+MOV mem16,segreg
+MOV reg16,segreg 
+MOV segreg,mem16
+MOV segreg,reg16
+~~~
+	
+</p>
+</details></h2>
+
+
+<br>
+<h2><details><summary> MOVSX (Move with Sign-Extend) </summary>
+<p>
+
+Opciones
+~~~nasm
+MOVSX reg32,reg8
+MOVSX reg32,reg16 
+MOVSX reg32,mem16
+MOVSX reg16,reg8 
+MOVSX reg16,m8
+	
+~~~
+	
+</p>
+</details></h2>
+
+
+<br>
+<h2><details><summary> MOVZX (Move with Zero-Extend) </summary>
+<p>
+
+Opciones
+~~~nasm
+MOVZX reg32,reg8
+MOVSX reg32,reg16 
+MOVSX reg32,mem16
+MOVSX reg16,reg8 
+MOVSX reg16,m8
+
+~~~
+	
+</p>
+</details></h2>
+
+
 <br>
 <h2><details><summary> DumpRegs (It desplays all the general registers and the flags)</summary>
 <p>
@@ -158,10 +247,8 @@ It returns, in EAX, the count of the number of characters typed by the user.
 <h2><details><summary> type PTR (Overrides the declared size of an operand, then allows the selection of some part of a variable)</summary>
 <p>
 
-Pass the buffer’s offset in EDX register.
-Set ECX to the maximum number of characters that the user can type, plus 1 to save space for the terminting null byte.
-It returns, in EAX, the count of the number of characters typed by the user.
 It can also be used to combine elements of a smaller data type and move them into a larger operand.
+	
 ~~~nasm
 .DATA
       .DATA
@@ -220,7 +307,9 @@ El producto es del doble del tamaño.
 <p>
 
 Usa AL, AX, EAX, RAX de forma implícita para multiplicar por el parámetro que se le de a IMUL.
+	
 Preserva el signo del producto usando extensión de signo en la mitad superior.
+	
 CF y OF están en 1 si la mitad superior del producto NO es una extensión de signo de la mitad inferior.
 
 |Multiplicando	|Multiplicador|		Producto	|
@@ -258,7 +347,9 @@ IMUL reg32,imm32
 <h2><details><summary> IMUL (Multiplicación con signo de tres operandos)</summary>
 <p>
 El resultado se guarda en el primer operando.
+	
 CF y OF están en 1 si los dígitos significativos se pierden.
+	
 El resultado se guarda en el primer registro.
 
 <br>
@@ -531,8 +622,18 @@ NOT mem
 
 <h2><details><summary> TEST (nondestructive AND)</summary>
 <p>
-
+Performs a logical AND operation that affects the flags but not the destination operand.
 Modifies the Sign, Zero, and Parity flags.
+	
+~~~nasm
+TEST reg,reg 
+TEST reg,imm
+TEST mem,reg 
+TEST mem,imm
+TEST reg,mem 
+TEST accum,imm
+	
+~~~
 	
 </p>
 </details></h2>
