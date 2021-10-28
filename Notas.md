@@ -390,7 +390,7 @@ DIV reg/mem64  <br>
 |EDX:EAX | reg/mem32| EAX | EDX|
 
 
-Limpiar reminder, cargar el diviendo en AL, AX, EAX y el número que lo va a dividir en AL, AX o EAX.
+Limpiar reminder, cargar el diviendo en AL, AX, EAX y el número que lo va a dividir en reg o en mem.
 
 Todas las banderas quedan indefinidas.
 
@@ -420,7 +420,7 @@ The CBW, CWD, and CDQ instructions provide important sign-extension operations:
 |EDX:EAX | reg/mem32| EAX | EDX|
 
 
-Limpiar reminder, cargar el diviendo en AL, AX, EAX y el número que lo va a dividir en AL, AX o EAX.
+Limpiar reminder, cargar el diviendo en AL, AX, EAX y el número que lo va a dividir en reg o en mem..
 
 Todas las banderas quedan indefinidas.
 
