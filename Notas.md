@@ -757,3 +757,94 @@ ENDM
 <br/>
 
 
+# Direccionamiento 
+
+## Direccionamiento directo
+The operand has the location to place a value, or has the content to get a value. 
+
+## Direccionamiento indirecto
+The operand has the memory address (offset) of the location to place a value, or has the memory address (offset) of the content to get a value.
+- Operadores indirectos. ESI and EDI prefered registers. [reg] where reg contains an address(offset, pointer, o reference)
+<h2><details><summary> EJEMPLOS </summary>
+<p>
+~~~nasm
+.DATA
+val1 BYTE 10h,20h,30h
+
+.CODE
+MOV ESI,OFFSET val1
+MOV AL,[ESI]	
+INC ESI
+MOV AL,[ESI]	
+
+INC ESI
+MOV AL,[ESI]
+~~~
+Use PTR to clarify the size attribute of a memory operand!
+~~~nasm
+.DATA
+myCount WORD 0
+
+.CODE
+MOV ESI,OFFSET myCount
+;INC [ESI]	; error: ambiguous
+INC WORD PTR [ESI]	
+~~~
+</p>
+</details></h2>
+<br/>
+
+- Operadores indexados. 
+
+constant [reg]       or             [constant + reg] 
+
+where constant must represent an address/offset
+
+and reg contains a displacement value  
+
+<h2><details><summary> EJEMPLOS </summary>
+<p>
+	
+~~~nasm
+.DATA
+; Starting address 500h
+arrayW WORD 1000h,2000h,3000h
+;    index:   0,    1,    2
+
+.CODE
+	; Basic Indexed or INDEXED
+	MOV ESI,0                   ; index=0, displacement=0
+	MOV AX, arrayW[ESI]	 ; AX = 1000h
+	MOV AX, [arrayW + ESI] 	 ; Alternative
+
+	ADD ESI,2                   ; index=1, displacement=2
+	ADD AX, [arrayW + ESI]        
+	ADD AX, arrayW[ESI] 
+~~~
+</p>
+</details></h2>
+<br/>
+
+- Index scaling. You can scale an indirect or indexed operand to the offset of an array element. This is done by multiplying the index by the array's TYPE.
+
+<h2><details><summary> EJEMPLOS </summary>
+<p>
+	
+~~~nasm
+.DATA
+;      index  0,  1,  2,  3,  4,  5
+arrayB BYTE  10, 11, 12, 13, 14, 15
+arrayW WORD  10, 11, 12, 13, 14, 15
+arrayD DWORD 10, 11, 12, 13, 14, 15
+
+.CODE
+MOV ESI,4        ; index 4
+MOV AL, arrayB[ESI * TYPE arrayB]    ; 14
+MOV BX, arrayW[ESI * TYPE arrayW]	    ; 0014
+MOV EDX, arrayD[ESI * TYPE arrayD]    ; 00000014
+![image](https://user-images.githubusercontent.com/42878951/139181608-63d6ff01-cf14-429f-a420-6f96bc367e6c.png)
+
+~~~
+</p>
+</details></h2>
+<br/>
