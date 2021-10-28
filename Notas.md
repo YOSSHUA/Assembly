@@ -842,7 +842,6 @@ MOV ESI,4        ; index 4
 MOV AL, arrayB[ESI * TYPE arrayB]    ; 14
 MOV BX, arrayW[ESI * TYPE arrayW]	    ; 0014
 MOV EDX, arrayD[ESI * TYPE arrayD]    ; 00000014
-![image](https://user-images.githubusercontent.com/42878951/139181608-63d6ff01-cf14-429f-a420-6f96bc367e6c.png)
 
 ~~~
 </p>
