@@ -765,7 +765,7 @@ The operand has the location to place a value, or has the content to get a value
 ## Direccionamiento indirecto
 The operand has the memory address (offset) of the location to place a value, or has the memory address (offset) of the content to get a value.
 - Operadores indirectos. ESI and EDI prefered registers. [reg] where reg contains an address(offset, pointer, o reference)
-<h2><details><summary> EJEMPLOS </summary>
+<details><summary> EJEMPLOS </summary>
 <p>
 ~~~nasm
 .DATA
@@ -791,7 +791,7 @@ MOV ESI,OFFSET myCount
 INC WORD PTR [ESI]	
 ~~~
 </p>
-</details></h2>
+</details>
 <br/>
 
 - Operadores indexados. 
@@ -802,7 +802,7 @@ where constant must represent an address/offset
 
 and reg contains a displacement value  
 
-<h2><details><summary> EJEMPLOS </summary>
+<details><summary> EJEMPLOS </summary>
 <p>
 	
 ~~~nasm
@@ -822,12 +822,12 @@ arrayW WORD 1000h,2000h,3000h
 	ADD AX, arrayW[ESI] 
 ~~~
 </p>
-</details></h2>
+</details>
 <br/>
 
 - Index scaling. You can scale an indirect or indexed operand to the offset of an array element. This is done by multiplying the index by the array's TYPE.
 
-<h2><details><summary> EJEMPLOS </summary>
+<details><summary> EJEMPLOS </summary>
 <p>
 	
 ~~~nasm
@@ -845,5 +845,5 @@ MOV EDX, arrayD[ESI * TYPE arrayD]    ; 00000014
 
 ~~~
 </p>
-</details></h2>
+</details>
 <br/>
