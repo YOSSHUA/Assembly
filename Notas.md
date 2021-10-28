@@ -578,7 +578,32 @@ mDumpMem MACRO address, itemsCount, itemSize
 	pop  ecx
 	pop  ebx
 ENDM
+	
+mWriteStr   MACRO   str
+    push EDX
+    MOV EDX, OFFSET str
+    CALL WriteString
+    pop EDX
+ENDM
 
+mReadInt    MACRO   val
+    push EAX
+    CALL ReadInt
+    MOV val, EAX
+    pop EAX
+ENDM
+
+mWriteInt   MACRO   dest
+    push EAX
+    MOV EAX, dest
+    CALL WriteInt
+    pop EAX
+ENDM
+
+mNewLine    MACRO
+    CALL Crlf
+ENDM
+	
 .DATA
     
 .CODE
@@ -591,29 +616,8 @@ ENDM
 </details></h2>
 <br/>
 
-<h2><details><summary> Ejemplo 2 </summary>
-<p>
 
-~~~nasm
-;Incluir librería de macros
-INCLUDE \masm32\Irvine\Macros.inc
 
-; Macro definition with an argument 
-mPutchar  MACRO  char
-	push EAX
-	mov AL, char
-	call WriteChar
-	pop EAX
-ENDM
-
-.DATA
-
-.CODE
-    mPutchar  ‘A’
-~~~	
-</p>
-</details></h2>
-<br/>
 
 # Directivas de control de flujo condicional
 
