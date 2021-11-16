@@ -847,3 +847,116 @@ MOV EDX, arrayD[ESI * TYPE arrayD]    ; 00000014
 </p>
 </details>
 <br/>
+
+# Shift and Rotate
+
+<details><summary> SHR(Logical Right Shift) </summary>
+<p>
+
+Se recorren los bits a la derecha, llenado los bits vacíos de la izquierda con 0's y el último LSB se va al CF. Si se recorren n bits es como dividir 
+el número entre $2^n$
+	
+~~~nasm
+.DATA
+
+.CODE
+SHR reg,imm8
+SHR mem,imm8
+SHR reg,CL
+SHR mem,CL
+
+~~~
+</p>
+</details>
+<br/>
+
+<details><summary> SHL(Logical Left Shift) </summary>
+<p>
+
+Se recorren los bits a la izquierda, llenado con 0's los bits vacíos de la derecha y el último MSB se va al CF. Si se recorren n bits es como multiplicar 
+el número entre $2^n$
+	
+~~~nasm
+.DATA
+
+.CODE
+SHL reg,imm8
+SHL mem,imm8
+SHL reg,CL
+SHL mem,CL
+
+~~~
+</p>
+</details>
+<br/>
+
+<details><summary> SAR (Shift Arithmetic Right) </summary>
+<p>
+
+Se recorren los bits a la derecha n veces. El último LSB se va al CF, pero
+del lado izquierdo se rellena con el signo del número.
+	
+~~~nasm
+.DATA
+
+.CODE
+SAR reg,imm8
+SAR mem,imm8
+SAR reg,CL
+SAR mem,CL
+
+~~~
+</p>
+</details>
+<br/>
+
+<details><summary> SAL (Shift Arithmetic Left) </summary>
+<p>
+
+Es idéntico a SHL.
+
+</p>
+</details>
+<br/>
+
+<details><summary> ROL (Rotate Left) </summary>
+<p>
+
+Se hace shift a la iquierda n bits. Sin embargo, el MSB es copiado al CF y al LSB. No se pierden los bits.
+	
+~~~nasm
+.DATA
+
+.CODE
+	
+MOV AL,11110000b
+ROL AL,1	; AL = 11100001b
+
+MOV DL,3Fh
+ROL DL,4
+
+~~~
+</p>
+</details>
+<br/>
+
+<details><summary> ROR (Rotate Right) </summary>
+<p>
+
+Se hace shift a la derecha n bits. Sin embargo, el LSB es copiado al CF y al MSB. No se pierden los bits.
+	
+~~~nasm
+.DATA
+
+.CODE
+	
+MOV AL,11110000b
+ROR AL,1	; AL = 01111000b
+
+MOV DL,3Fh
+ROR DL,4	; DL = F3h
+
+~~~
+</p>
+</details>
+<br/>
