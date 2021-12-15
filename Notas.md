@@ -767,6 +767,7 @@ The operand has the memory address (offset) of the location to place a value, or
 - Operadores indirectos. ESI and EDI prefered registers. [reg] where reg contains an address(offset, pointer, o reference)
 <details><summary> EJEMPLOS </summary>
 <p>
+
 ~~~nasm
 .DATA
 val1 BYTE 10h,20h,30h
@@ -780,7 +781,9 @@ MOV AL,[ESI]
 INC ESI
 MOV AL,[ESI]
 ~~~
+
 Use PTR to clarify the size attribute of a memory operand!
+
 ~~~nasm
 .DATA
 myCount WORD 0
@@ -790,6 +793,7 @@ MOV ESI,OFFSET myCount
 ;INC [ESI]	; error: ambiguous
 INC WORD PTR [ESI]	
 ~~~
+
 </p>
 </details>
 <br/>
@@ -847,6 +851,63 @@ MOV EDX, arrayD[ESI * TYPE arrayD]    ; 00000014
 </p>
 </details>
 <br/>
+
+# Procedures
+
+It's a named block of statements.
+Below is the basic structure of a procedure.
+~~~nasm
+nomPro PROC
+.
+.
+RET    ;return instruction
+nomPro ENDP
+~~~
+
+<details><summary> Ejemplos </summary>
+<p>
+
+
+~~~nasm
+
+main PROC
+    . . .
+    CALL SumOf
+    . . .
+    EXIT
+main ENDP 
+;---------------------------------------------------------
+SumOf PROC
+; Calculates and returns the sum of three 32-bit integers.
+; Receives: EAX, EBX, ECX, the three integers. May be
+; signed or unsigned.     Like Irvine
+; Returns: EAX = sum, and the status flags (Carry,
+; Overflow, etc.) are changed.    Like Irvine
+; Requires: nothing
+;---------------------------------------------------------
+ADD EAX,EBX
+ADD EAX,ECX
+RET
+SumOf ENDP
+END main
+
+
+~~~	
+</p>
+</details>
+
+The CALL instruction calls the procedure and pushes the offset of next intruction on the stack, after CALL.
+
+The RET instruction returns from a procedure, pops the top of stack to get the offset into the Program Counter.
+
+In order to pass parameters you can pass it through the stack.
+
+When calling a PROCEDURE, you can pass arguments PUSHing them on the stack.
+
+Inside a PROCEDURE, you can recover arguments POPing them from the stack.
+
+Don't forget that inside the procedure the first element is the offset to the next instruction where it was called. If you pass parameters you will have to pop the offset and then your parameters, remember to push again the offset before the RET.
+
 
 # Shift and Rotate
 
