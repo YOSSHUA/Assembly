@@ -1021,3 +1021,26 @@ ROR DL,4	; DL = F3h
 </p>
 </details>
 <br/>
+
+
+<details><summary> RCR (Rotate Carry Right) </summary>
+<p>
+Shifts each bit to the right
+Copies the Carry flag to the Most significant bit.
+Copies the Least significant bit to the Carry flag.
+
+</p>
+</details>
+<br/>
+
+
+<details><summary> RCL (Rotate Carry Left) </summary>
+<p>
+
+Shifts each bit to the left.
+Copies the Carry flag to the Least significant bit.
+Copies the Most significant bit to the Carry flag.
+
+</p>
+</details>
+<br/>
