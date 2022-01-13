@@ -1289,26 +1289,118 @@ FLD dblTwo ; ST(0) = dblTwo, ST(1) = dblOne
 </details>
 <br/>
 
-<details><summary> FST (Store Floating-Point Value) </summary>
+<details><summary> FST / FSTP (Store Floating-Point Value) </summary>
 <p>
 
 Copies floating point operand from the top of the FPU stack and store it into memory.
 
+FST
+
 memory location / ST(i)  <- ST(0)
+
+FSTP
+
+memory location / ST(i)  <- ST(0)
+
+TOP++ ; POP
 
 ~~~nasm
 .DATA
-dblOne REAL8 234.56
-dblTwo REAL8 10.1
+
+
 .CODE
 
-FLD  m32fp
-FLD  m64fp
-FLD  m80fp
-FLD  ST(i)
+FST/FSTP  m32fp
+FST/FSTP  m64fp
+FST/FSTP  m80fp
+FST/FSTP  ST(i)
 
-FLD dblOne ; ST(0) = dblOne
-FLD dblTwo ; ST(0) = dblTwo, ST(1) = dblOne
+~~~
+
+</p>
+</details>
+<br/>
+
+Other operations
+
+![](https://github.com/YOSSHUA/Assembly/blob/main/Images/realOps.png?raw=true)
+
+
+
+<details><summary> FADD (Floating-Point Addition) </summary>
+<p>
+
+Adds source to destination.
+
+~~~nasm
+.DATA
+
+
+.CODE
+
+FADD ; pops the FPU stack
+FADD  m32fp
+FADD  m64fp
+FADD  ST(0), ST(i)
+FADD  ST(i), ST(0)
+
+fadd mySingle                   ; ST(0)  +=  mySingle
+fadd REAL8 PTR[esi]        ; ST(0)  +=  REAL8 PTR[esi]
+
+~~~
+
+</p>
+</details>
+<br/>
+
+<details><summary> FSUB (Floating-Point Subtract) </summary>
+<p>
+
+Subtracts source from destination.
+
+~~~nasm
+.DATA
+
+
+.CODE
+
+FSUB ; pops the FPU stack
+FSUB  m32fp
+FSUB  m64fp
+FSUB  ST(0), ST(i)
+FSUB  ST(i), ST(0)
+
+
+fsub mySingle               ; ST(0)  -=  mySingle
+fsub array[edi*8]         ; ST(0)  -=  array[edi*8]
+
+~~~
+
+</p>
+</details>
+<br/>
+
+<details><summary> FILD / FIST </summary>
+<p>
+
+FILD 
+
+Load integer. The instruction converts a 16-, 32-, 64-bit SIGNED integer source operand to double-precision floating point and loads it into ST(0).
+
+FIST
+
+Store Integer. Instruction converts the value in ST(0) to SIGNED integer and stores the result in the destination operand.
+
+
+~~~nasm
+.DATA
+
+
+.CODE
+
+FILD/FIST  m16int
+FILD/FIST  m32int
+FILD/FIST  m64int
 
 ~~~
 
