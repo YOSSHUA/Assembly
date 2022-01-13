@@ -35,6 +35,26 @@ ADD accum,imm
 </p>
 </details></h2>
 
+
+<br>
+<h2><details><summary> ADC \ SBB (Add with carry \ subtract with borrow)</summary>
+<p>
+
+Same syntax as ADD \ SUB.
+Opciones
+~~~nasm
+ADD reg,reg 
+ADD reg,imm
+ADD mem,reg 
+ADD mem,imm
+ADD reg,mem 
+ADD accum,imm
+~~~
+	
+</p>
+</details></h2>
+
+
 <br>
 <h2><details><summary> XCHG </summary>
 <p>
@@ -921,6 +941,7 @@ el número entre $2^n$
 .DATA
 
 .CODE
+SHR destination, shifts_count
 SHR reg,imm8
 SHR mem,imm8
 SHR reg,CL
@@ -941,6 +962,7 @@ el número entre $2^n$
 .DATA
 
 .CODE
+SHL destination, shifts_count
 SHL reg,imm8
 SHL mem,imm8
 SHL reg,CL
@@ -961,6 +983,7 @@ del lado izquierdo se rellena con el signo del número.
 .DATA
 
 .CODE
+SAR destination, shifts_count
 SAR reg,imm8
 SAR mem,imm8
 SAR reg,CL
@@ -1031,6 +1054,17 @@ Copies the Carry flag to the Most significant bit.
 
 Copies the Least significant bit to the Carry flag.
 
+~~~nasm
+.DATA
+
+.CODE
+
+STC	; CF = 1
+MOV AH,10h	; CF= 1, AH= 00010000b
+RCR AH,1	; CF= 0, AH= 10001000b
+
+~~~
+
 </p>
 </details>
 <br/>
@@ -1044,6 +1078,239 @@ Shifts each bit to the left.
 Copies the Carry flag to the Least significant bit.
 
 Copies the Most significant bit to the Carry flag.
+
+~~~nasm
+.DATA
+
+.CODE
+
+CLC		; CF = 0
+MOV BL,88h		; CF= 0, BL= 10001000b
+RCL BL,1		; CF= 1, BL= 00010000b
+RCL BL,1		; CF=0, BL= 00100001b
+
+~~~
+
+</p>
+</details>
+<br/>
+
+<details><summary> SHLD(Shift Left Double) </summary>
+<p>
+
+Shifts a destination operand given a number of bits to the left.
+The positions opened up by the shift are copied from the most significant bits
+of a source operand. 
+
+~~~nasm
+.DATA
+
+.CODE
+
+SHLD destination, source, shiftscount
+SHLD reg8/16/32, reg8/16/32, imm8/CL
+SHLD mem8/16/32, reg8/16/32, imm8/CL
+
+MOV AL,11100000b
+MOV BL,10011101b
+SHLD AL,BL,1     ; dest=AL, source=BL , AL = 11000001 , BL = BL, CF = 1 
+
+
+~~~
+
+</p>
+</details>
+<br/>
+
+<details><summary> SHRD(Shift Right Double) </summary>
+<p>
+
+Shifts a destination operand given a number of bits to the right.
+The positions opened up by the shift are copied from the least significant bits
+of a source operand. 
+
+~~~nasm
+.DATA
+
+.CODE
+
+SHRD destination, source, shiftscount
+SHRD reg8/16/32, reg8/16/32, imm8/CL
+SHRD mem8/16/32, reg8/16/32, imm8/CL
+
+MOV AL,11000001b
+MOV BL,00011101b
+SHRD AL,BL,1      ; dest=AL, source=BL, AL = 11100000, BL = same,  CF = 1
+
+
+~~~
+
+</p>
+</details>
+<br/>
+
+
+# Floating Point Decimal(Real) Number
+
+The representation contains three components.
+For example, for - 38.7512 x 10<sup>5</sup> is represented as below 
+| sign | significand | exponent |
+| --- | --- | --- |
+| - | 38.7512 | 5 |
+
+## IEEE Floating-Point Binary Reals
+
+
+|Type| Total bits | Sign( 1 = -, 0 = +) |  Exponent | Significand  | Approx. normalized Range |
+|---| --- | --- | --- | --- | --- |
+| Single Precision(short real) | 32 | 1 | 8 | 23  | 2<sup>-126</sup> to 2<sup>127</sup> |
+| Double Precision(long real) | 64 | 1 | 11 | 52  | 2<sup>-1022</sup> to 2<sup>1023</sup> |
+| Double Extended Precision(extended real) | 80 | 1 | 16 | 63  | 2<sup>-16382</sup> to 2<sup>16383</sup> |
+
+In all the formats, the structure is SIGN + EXPONENT + FRACTION
+
+where fraction is the significand, after normalize it(a single 1 appears to the left of the binary point).
+The exponent is represented as Unsigned Integer; to get the biased exponent, we have to add the biggest power of the real.
+
+![](https://github.com/YOSSHUA/Assembly/blob/main/Images/realNumEncode.png?raw=true)
+
+
+# FPU Instruction set
+
+1. Instruction mnemonics begin with letter F.
+
+2. Second letter identifies data type of memory operand:
+    - B : BCD
+    - I : Binary integer
+    - no letter : real numbers
+
+<br>
+
+Considerations for the operands:
+
+- they could be zero, one, or two
+- there aren't immediate operands (integers)
+- you can't use general-purpose registers (EAX, EBX, ...)
+- integers must be loaded (pushed) from memory onto the stack and converted to floating-point before being used in FPU calculations
+- if a FPU instruction has two operands, one must be a FPU register
+
+Types
+
+![](https://github.com/YOSSHUA/Assembly/blob/main/Images/realTypes.png?raw=true)
+
+## Procedures from Irvine library
+
+<details><summary> ReadFloat </summary>
+<p>
+
+Reads FP value, pushes it on the FPU stack.
+
+TOP--
+
+ST(0) <- Read value
+
+~~~nasm
+.DATA
+
+.CODE
+
+CALL ReadFloat
+
+~~~
+
+</p>
+</details>
+<br/>
+
+<details><summary> WriteFloat </summary>
+<p>
+
+Writes value from ST(0) in exponential format
+
+~~~nasm
+.DATA
+
+.CODE
+
+CALL WriteFloat
+
+~~~
+
+</p>
+</details>
+<br/>
+
+<details><summary> ShowFPUStack </summary>
+<p>
+
+Display the whole content of FPU stack.
+
+</p>
+</details>
+<br/>
+
+## FPU Instructions
+
+<details><summary> FINIT </summary>
+<p>
+
+Initializes the FPU.
+
+</p>
+</details>
+<br/>
+
+<details><summary> FLD (Load a Floating-Point Value) </summary>
+<p>
+
+Loads the operand from memory into the top of the FPU stack ST(0).
+
+TOP -- 
+
+ST(0) <- memory location
+
+~~~nasm
+.DATA
+dblOne REAL8 234.56
+dblTwo REAL8 10.1
+.CODE
+
+FLD  m32fp
+FLD  m64fp
+FLD  m80fp
+FLD  ST(i)
+
+FLD dblOne ; ST(0) = dblOne
+FLD dblTwo ; ST(0) = dblTwo, ST(1) = dblOne
+
+~~~
+
+</p>
+</details>
+<br/>
+
+<details><summary> FST (Store Floating-Point Value) </summary>
+<p>
+
+Copies floating point operand from the top of the FPU stack and store it into memory.
+
+memory location / ST(i)  <- ST(0)
+
+~~~nasm
+.DATA
+dblOne REAL8 234.56
+dblTwo REAL8 10.1
+.CODE
+
+FLD  m32fp
+FLD  m64fp
+FLD  m80fp
+FLD  ST(i)
+
+FLD dblOne ; ST(0) = dblOne
+FLD dblTwo ; ST(0) = dblTwo, ST(1) = dblOne
+
+~~~
 
 </p>
 </details>
