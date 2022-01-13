@@ -1407,3 +1407,151 @@ FILD/FIST  m64int
 </p>
 </details>
 <br/>
+
+<details><summary> FCHS / FABS(Change sign / absolute sign) </summary>
+<p>
+
+Any of the following instructions need operands.
+
+FCHS
+
+Reverses the sign of the floating point value.
+
+FABS
+
+Clears the sign of the number in ST(0) to create its absolute value.
+
+</p>
+</details>
+<br/>
+
+<details><summary> FMUL / FDIV (Floating-Point Multiply / Division) </summary>
+<p>
+
+FMUL 
+
+Multiplies source by destination, stores the product in destination.
+
+FDIV
+
+Divides destination by source, then pops the stack.
+
+
+~~~nasm
+.DATA
+
+dblOne  REAL8  1234.56
+dblTwo  REAL8  10.0
+dblQuot  REAL8  ?
+
+.CODE
+
+FMUL/FDIV
+FMUL/FDIV  m32fp
+FMUL/FDIV  m64fp
+FMUL/FDIV  ST(0), ST(i)
+FMUL/FDIV  ST(i), ST(0)
+
+fmul mySingle   ; ST(0)  *=  mySingle
+fdiv mySingle   ; ST(0)  /=  mySingle
+
+fld dblOne      ; load  into  ST(0),   (push dblOne)   ST(0)=1234.56
+fdiv dblTwo     ; divide  ST(0)  by  dblTwo,    ST(0)=ST(0)/dblTwo=1234.56/10.0
+fstp dblQuot    ; store  ST(0)  to  dblQuot,    (pop  dblQuot)   dblQuot=123.456
+
+~~~
+
+</p>
+</details>
+<br/>
+
+<details><summary> FNSTSW </summary>
+<p>
+
+Store FPU Status Word in a 16-bit integer.
+
+~~~nasm
+.DATA
+
+.CODE
+
+FNSTSW AX
+
+~~~
+
+</p>
+</details>
+<br/>
+
+## Comparing Floating-Points Values
+
+![](https://github.com/YOSSHUA/Assembly/blob/main/Images/fcom.png?raw=true)
+
+FCOM family compares two floating-values, affecting the flags of the FPU Status Word.
+To use jconds we should pass the FPU Status Word to EFLAGS.
+
+<details><summary> Example </summary>
+<p>
+
+Store FPU Status Word in a 16-bit integer.
+
+~~~nasm
+.DATA
+        X   REAL8  1.2
+        Y   REAL8  3.0
+        N  DWORD  0
+.CODE
+    ; C++
+    ; double X = 1.2;
+    ; double Y = 3.0;
+    ; int N = 0;
+    ; if( X < Y )
+    ;   N = 1;
+
+
+    ; if( X < Y )
+    ;      N = 1
+    fld  X                  ; ST(0) = X
+    FCOMP  Y            ; compare ST(0) to Y
+    FNSTSW  ax          ; move FPU Status Word into AX
+    SAHF                    ; copy AH into EFLAGS
+    jnb  L1                ; X not < Y?  skip
+        mov  N, 1           ; N = 1
+    L1:
+
+
+~~~
+
+</p>
+</details>
+<br/>
+
+<details><summary> FCOMI </summary>
+<p>
+
+It compares two floating-point values and sets the Zero, Parity, and Carry flags directly, in EFLAGS
+
+~~~nasm
+.DATA
+    X  REAL8 1.2
+        Y  REAL8 3.0
+        N  DWORD 0
+
+.CODE
+   
+    FCOMI  ST(0), ST(i)
+
+    ; EXAMPLE ----
+    ; if( X < Y )
+    ;     N = 1
+    fld  Y                          ; ST(0) = Y
+    fld  X                          ; ST(0) = X
+    fcomi  ST(0), ST(1)            ; compare ST(0) to ST(1)
+    jnb  L1                        ; ST(0) not < ST(1)?  skip
+        mov  N, 1               ; N = 1
+
+~~~
+
+</p>
+</details>
+<br/>
